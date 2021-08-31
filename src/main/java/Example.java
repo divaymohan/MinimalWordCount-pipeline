@@ -20,11 +20,11 @@ public class Example {
 		
 		Pipeline pipeline = Pipeline.create(pipelineOptions);
 		
-		pipeline.apply(TextIO.read().from("C:\\Users\\dm255078\\OneDrive - Teradata\\Documents\\Learnings\\word-count-beam\\input.txt"))
+		pipeline.apply(TextIO.read().from("C:\\Users\\dm255078\\OneDrive - Teradata\\Documents\\Learnings\\word-count-beam\\input\\input.txt"))
 		.apply("ExtractWords",FlatMapElements.into(TypeDescriptors.strings()).via((String line) -> Arrays.asList(line.split("[^\\p{L}]+")) ))
 		.apply(Count.<String>perElement())
 		.apply("FormatResults",MapElements.into(TypeDescriptors.strings()).via((KV<String,Long> wordCount) -> wordCount.getKey()+": "+wordCount.getValue()))
-		.apply(TextIO.write().to("wordscounts"));
+		.apply(TextIO.write().to("C:\\Users\\dm255078\\OneDrive - Teradata\\Documents\\Learnings\\word-count-beam\\output\\wordcount"));
 		
 		pipeline.run().waitUntilFinish();
 		
