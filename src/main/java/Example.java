@@ -13,9 +13,20 @@ import org.apache.beam.sdk.values.KV;
 public class Example {
 
 	public static void main(String[] args) {
-		PipelineOptions pipelineOptions = PipelineOptionsFactory.create(); 
 		
+		/* Create Options:-->
+		 * 1.choose runner.
+		 * 2.Set input /output locations 
+		 * 3.Set runner specific configuration
+		 * */
+		PipelineOptions pipelineOptions = PipelineOptionsFactory.create(); 
+		/*
+		 * Create pipeline with pipeline options.
+		 */
 		Pipeline pipeline = Pipeline.create(pipelineOptions);
+		/*
+		 * Let's build the pipeline
+		 */
 		pipeline.apply(TextIO.read().from("C:\\Users\\dm255078\\OneDrive - Teradata\\Documents\\Learnings\\word-count-beam\\input\\input.txt"))
                 .apply("ExtractWords", ParDo.of(new DoFn<String, String>() {
 
